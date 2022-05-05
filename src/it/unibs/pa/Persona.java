@@ -10,7 +10,7 @@ public class Persona {
 	private String data;
 	private String comuneDiNascita;
 	
-	private String codiceFiscale;
+	private CodiceFiscale codiceFiscale;
 	
 
 
@@ -65,17 +65,17 @@ public class Persona {
 	
 	
 	
-	public String getCodiceFiscale() {
+	public CodiceFiscale getCodiceFiscale() {
 		return codiceFiscale;
 	}
 
-	public void setCodiceFiscale(String codiceFiscale) {
+	public void setCodiceFiscale(CodiceFiscale codiceFiscale) {
 		this.codiceFiscale = codiceFiscale;
 	}
 
-	public String creaCodiceFiscale() throws XMLStreamException {
-		CodiceFiscale cd = new CodiceFiscale(this);
-		return cd.getCodiceCompleto();
+	public CodiceFiscale creaCodiceFiscale() throws XMLStreamException {
+		
+		return new CodiceFiscale(this);
 		
 	}
 	

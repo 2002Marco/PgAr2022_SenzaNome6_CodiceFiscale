@@ -10,7 +10,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 public class CreaXML {
 	
-	private static final int utf = 0;
+	
 
 	public static XMLStreamReader creaReader (String nomeFile, String nomeConEstensione) {
 		
@@ -33,13 +33,14 @@ public class CreaXML {
 		XMLStreamWriter xmlw = null;
 		try {
 		xmlof = XMLOutputFactory.newInstance();
-		xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(nomeFile), “utf-8”);
-		xmlw.writeStartDocument(“utf-8”, “1.0”);
+		xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(nomeFile));
+		xmlw.writeStartDocument();
 		} catch (Exception e) {
 		System.out.println("Errore nell'inizializzazione del writer:");
 		System.out.println(e.getMessage());
 		}
 		
+		return xmlw;
 	}
 
 }

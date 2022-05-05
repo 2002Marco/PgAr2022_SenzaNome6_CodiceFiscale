@@ -85,15 +85,25 @@ public class Main {
 	}
 	
 	public static void controlloPresenzaCodici() {
+		
+		
+		
 		for(int i = 0; i < 1000; i++) {
-			for(int k = 0; k< codiciValidi.size(); k++) {
-				if (persone[i].getCodiceFiscale().equals(codiciValidi.get(k).getCodiceCompleto()))
-					personeValide.add(persone[i]);		
-				if (k == codiciValidi.size() - 1)
-					codiciSpaiati.add(new CodiceFiscale(persone[i].getCodiceFiscale()));
+			boolean trovato = false;
+			
+			for(int k = 0; !trovato && k< codiciValidi.size() ; k++) {
+				if (persone[i].getCodiceFiscale().getCodiceCompleto().equals(codiciValidi.get(k).getCodiceCompleto())) {
+					personeValide.add(persone[i]);
+					trovato = true;
+				}
+				if (k == codiciValidi.size() -1 && !trovato) 
+					codiciSpaiati.add(persone[i].getCodiceFiscale());
+				
 			}
 			
 		}
+		System.out.println(personeValide.size());
+		System.out.println(codiciSpaiati.size());
 	}
 
 }
