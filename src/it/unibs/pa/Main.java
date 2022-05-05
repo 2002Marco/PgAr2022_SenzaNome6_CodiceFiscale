@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 public class Main {
 	
@@ -20,8 +21,11 @@ public class Main {
 		letturaPersona(CreaXML.creaReader("inputPersone", "inputPersone.xml"));
 		letturaCodici(CreaXML.creaReader("codiciFiscali", "codiciFiscali.xml"));
 		controlloPresenzaCodici();
+		creaXML(CreaXML.creaWriter("codiciPersone.xml"));
 	}
 	
+	
+
 	public static void letturaPersona(XMLStreamReader xmlr) throws XMLStreamException {
 		
 		int i = 0;
@@ -102,8 +106,55 @@ public class Main {
 			}
 			
 		}
-		System.out.println(personeValide.size());
-		System.out.println(codiciSpaiati.size());
+	}
+	
+	private static void creaXML(XMLStreamWriter xmlw) throws XMLStreamException {
+		
+		
+		xmlw.writeStartElement("output");
+		xmlw.writeStartElement("persone");
+		xmlw.writeAttribute("numero", Integer.toString(personeValide.size()));
+		for(int i = 0; i < personeValide.size(); i++) {
+			
+			xmlw.writeStartElement("persona");		
+			xmlw.writeAttribute("id", Integer.toString(i));
+			
+			xmlw.writeStartElement("nome");		//nome
+			xmlw.writeCharacters(personeValide.get(i).getNome());
+			xmlw.writeEndElement();				
+				
+			xmlw.writeStartElement("cognome");	//cognome
+			xmlw.writeCharacters(personeValide.get(i).getCognome());
+			xmlw.writeEndElement();
+		
+			xmlw.writeStartElement("sesso");	//sesso
+			xmlw.writeCharacters("" + personeValide.get(i).getSesso());
+			xmlw.writeEndElement();
+		
+			xmlw.writeStartElement("comune_nascita");	//comune di nascita
+			xmlw.writeCharacters(personeValide.get(i).getComuneDiNascita());
+			xmlw.writeEndElement();
+			
+			xmlw.writeStartElement("data_nascita");	//data di nascita
+			xmlw.writeCharacters(personeValide.get(i).getData());
+			xmlw.writeEndElement();
+	
+			xmlw.writeStartElement("codice_fiscale");	//codice fiscale
+			xmlw.writeCharacters(personeValide.get(i).getCodiceFiscale().getCodiceCompleto());
+			xmlw.writeEndElement();
+			
+			xmlw.writeEndElement();
+		}
+		
+		xmlw.writeEndElement(); // chiude <persone>
+		
+		xmlw.writeEndDocument(); //chiude output
+		
+		xmlw.writeEndDocument();
+		xmlw.flush();
+		xmlw.close();
+		
+		
 	}
 
 }
