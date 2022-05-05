@@ -279,14 +279,13 @@ public class CodiceFiscale {
 		if (cf.length() < 16)
 			return false;
 		
-		char mese = cf.charAt(8);
-		int giorno = Integer.parseInt(cf.substring(9, 11));
-		
-		
 		
 		if(!isPosizioneValida(cf))
 			return false;
-				
+		
+		char mese = cf.charAt(8);
+		int giorno = Integer.parseInt(cf.substring(9, 11));	
+		
 		if(!isMeseValido(mese))
 			return false;
 		
