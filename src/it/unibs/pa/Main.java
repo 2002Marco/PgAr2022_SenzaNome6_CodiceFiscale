@@ -12,7 +12,6 @@ public class Main {
 	
 	public static Persona persone[] = new Persona[1000];
 	public static ArrayList <CodiceFiscale> codiciValidi = new ArrayList <CodiceFiscale>();
-	public static ArrayList <Persona> personeValide = new ArrayList <Persona>();
 	public static ArrayList <CodiceFiscale> codiciInvalidi = new ArrayList <CodiceFiscale>();
 	public static ArrayList <CodiceFiscale> codiciSpaiati = new ArrayList <CodiceFiscale>();
 	
@@ -97,7 +96,7 @@ public class Main {
 			
 			for(int k = 0; !trovato && k< codiciValidi.size() ; k++) {
 				if (persone[i].getCodiceFiscale().getCodiceCompleto().equals(codiciValidi.get(k).getCodiceCompleto())) {
-					personeValide.add(persone[i]);
+					persone[i].setPresente(true);
 					trovato = true;
 				}
 				if (k == codiciValidi.size() -1 && !trovato) 
@@ -113,40 +112,64 @@ public class Main {
 		
 		xmlw.writeStartElement("output");
 		xmlw.writeStartElement("persone");
-		xmlw.writeAttribute("numero", Integer.toString(personeValide.size()));
-		for(int i = 0; i < personeValide.size(); i++) {
+		xmlw.writeAttribute("numero", Integer.toString(persone.length));
+		for(int i = 0; i < persone.length; i++) {
 			
 			xmlw.writeStartElement("persona");		
 			xmlw.writeAttribute("id", Integer.toString(i));
 			
 			xmlw.writeStartElement("nome");		//nome
-			xmlw.writeCharacters(personeValide.get(i).getNome());
+			xmlw.writeCharacters(persone[i].getNome());
 			xmlw.writeEndElement();				
 				
 			xmlw.writeStartElement("cognome");	//cognome
-			xmlw.writeCharacters(personeValide.get(i).getCognome());
+			xmlw.writeCharacters(persone[i].getCognome());
 			xmlw.writeEndElement();
 		
 			xmlw.writeStartElement("sesso");	//sesso
-			xmlw.writeCharacters("" + personeValide.get(i).getSesso());
+			xmlw.writeCharacters("" + persone[i].getSesso());
 			xmlw.writeEndElement();
 		
 			xmlw.writeStartElement("comune_nascita");	//comune di nascita
-			xmlw.writeCharacters(personeValide.get(i).getComuneDiNascita());
+			xmlw.writeCharacters(persone[i].getComuneDiNascita());
 			xmlw.writeEndElement();
 			
 			xmlw.writeStartElement("data_nascita");	//data di nascita
-			xmlw.writeCharacters(personeValide.get(i).getData());
+			xmlw.writeCharacters(persone[i].getData());
 			xmlw.writeEndElement();
 	
-			xmlw.writeStartElement("codice_fiscale");	//codice fiscale
-			xmlw.writeCharacters(personeValide.get(i).getCodiceFiscale().getCodiceCompleto());
+			xmlw.writeStartElement("codice_fiscale");//codice fiscale
+			if (persone[i].isPresente())
+				xmlw.writeCharacters(persone[i].getCodiceFiscale().getCodiceCompleto());
+			else 
+				xmlw.writeCharacters("ASSENTE");
+				
 			xmlw.writeEndElement();
 			
 			xmlw.writeEndElement();
 		}
 		
 		xmlw.writeEndElement(); // chiude <persone>
+		
+		xmlw.writeStartElement("codici");
+		xmlw.writeStartElement("invalidi");
+		xmlw.writeAttribute("numero", Integer.toString(codiciInvalidi.size()));
+		
+		for (int i = 0; i < codiciInvalidi.size(); i++) {
+			xmlw.writeStartElement("codice");
+			xmlw.writeCharacters(codiciInvalidi.get(i).getCodiceCompleto());
+			xmlw.writeEndElement();
+		}
+		xmlw.writeEndElement();//chiude invalidi
+		
+		xmlw.writeStartElement("spaiati");
+		xmlw.writeAttribute("numero", Integer.toString(codiciSpaiati.size()));
+		for (int i = 0; i < codiciSpaiati.size(); i++) {
+			xmlw.writeStartElement("codice");
+			xmlw.writeCharacters(codiciSpaiati.get(i).getCodiceCompleto());
+			xmlw.writeEndElement();
+		}
+		xmlw.writeEndElement();//chiude spaiati
 		
 		xmlw.writeEndDocument(); //chiude output
 		

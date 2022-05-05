@@ -14,21 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/codiciFiscali.xml</name>
-			<type>1</type>
-			<location>/home/marco/eclipse-workspace/CodiceFiscale/codiciFiscali.xml</location>
-		</link>
-		<link>
-			<name>src/comuni.xml</name>
-			<type>1</type>
-			<location>/home/marco/eclipse-workspace/CodiceFiscale/comuni.xml</location>
-		</link>
-		<link>
-			<name>src/inputPersone.xml</name>
-			<type>1</type>
-			<location>/home/marco/eclipse-workspace/CodiceFiscale/inputPersone.xml</location>
-		</link>
-	</linkedResources>
 </projectDescription>

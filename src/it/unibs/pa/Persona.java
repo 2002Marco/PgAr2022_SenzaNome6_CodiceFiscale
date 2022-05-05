@@ -9,6 +9,7 @@ public class Persona {
 	private char sesso;
 	private String data;
 	private String comuneDiNascita;
+	private boolean presente;
 	
 	private CodiceFiscale codiceFiscale;
 	
@@ -21,7 +22,22 @@ public class Persona {
 		this.data = data;
 		this.comuneDiNascita = comuneDiNascita;
 		this.codiceFiscale = creaCodiceFiscale();
+		this.presente = false;
 	}
+	
+	
+	
+	public boolean isPresente() {
+		return presente;
+	}
+
+
+
+	public void setPresente(boolean presente) {
+		this.presente = presente;
+	}
+
+
 
 	public void setNome(String nome) {
 		this.nome = nome;
