@@ -327,10 +327,18 @@ public class CodiceFiscale {
 	}
 	public boolean isGiornoValido(int giorno, char mese) {
 		
+		char sesso;
+		if (giorno <= 31 && giorno >= 1)
+			sesso = 'M';
+		else if (giorno <= 71 && giorno >= 41)
+			sesso = 'F';
+		else 
+			return false;
+		
 		if(giorno < 1 || (giorno > 31 && giorno < 41) || giorno > 71)
 			return false;
 		
-		if (mese == 'B' && (giorno > 28 || giorno > 68))
+		if (mese == 'B' && ((giorno > 28 && sesso == 'M') || (giorno > 68 && sesso == 'F')))
 			return false;
 		
 		if ((mese == 'S' || mese == 'D' || mese == 'H' || mese == 'P') && (giorno == 31 || giorno == 71))
