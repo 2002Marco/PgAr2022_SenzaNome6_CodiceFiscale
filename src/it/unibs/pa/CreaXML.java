@@ -33,7 +33,7 @@ public class CreaXML {
 		XMLStreamWriter xmlw = null;
 		try {
 		xmlof = XMLOutputFactory.newInstance();
-		xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(nomeFile));
+		xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(nomeFile), "utf-8");
 		xmlw.writeStartDocument("utf-8", "1.0");
 		} catch (Exception e) {
 		System.out.println("Errore nell'inizializzazione del writer:");
