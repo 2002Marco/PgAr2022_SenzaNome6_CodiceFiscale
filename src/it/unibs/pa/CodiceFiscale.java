@@ -20,12 +20,12 @@ public class CodiceFiscale {
 	private char codiceControllo;
 	
 	
-	private String codiceCompleto;
+	private String codiceCompleto;    //codice fiscale
 	
 	//costrutturi
 	
-	public CodiceFiscale(Persona p) throws XMLStreamException {
-		this.p = p;
+	public CodiceFiscale(Persona p) throws XMLStreamException {      //costruttore crea il codice partendo dai dati di una persona
+		this.p = p;          
 		this.codiceNome = creaCodiceNome();
 		this.codiceCognome = creaCodiceCognome();
 		this.codiceDataESesso = creaCodiceData();
@@ -34,12 +34,12 @@ public class CodiceFiscale {
 		this.codiceCompleto = codiceCognome + codiceNome + codiceDataESesso + codiceComune + codiceControllo;
 	}
 	
-	public CodiceFiscale(String codiceFiscale) {
+	public CodiceFiscale(String codiceFiscale) {      //costruttore crea il codice partendo da codice fiscale
 		this.codiceCompleto = codiceFiscale;
 	}
 	
 	// metodi
-	public String getCodiceCompleto() {
+	public String getCodiceCompleto() {       //costruisce il codice partendo da una stringa
 		return codiceCompleto;
 	}
 
@@ -51,14 +51,14 @@ public class CodiceFiscale {
 		String codNome ="";
 		int numCons = numeroConsonanti(nome);
 		
-		if (nome.length() < 3)
+		if (nome.length() < 3)     //controlla il caso in cui il nome abbia meno di 3 caratteri
 			codNome = stringaConMenoDiTreCaratteri(nome);
 		
-		else if (numCons >= 4) {
+		else if (numCons >= 4) {  //caso con 4 o più consonanti
 			String str = stringaSenzaVocali(nome);
 			codNome = "" + str.charAt(0) + str.charAt(2) + str.charAt(3);
 		}
-		else 
+		else         //controlla il caso in cui il nome abbia meno di 3 consonanti
 			codNome = stringaConMenoDiTreConsonanti(nome);
 		return codNome;
 	}
@@ -68,15 +68,15 @@ public class CodiceFiscale {
 		String codCogn = "";
 		String cognome = p.getCognome();
 		
-		if(cognome.length() < 3)
+		if(cognome.length() < 3)     //controlla il caso in cui il nome abbia meno di 3 caratteri
 			codCogn = stringaConMenoDiTreCaratteri(cognome);
-		else
+		else     //controlla il caso in cui il nome abbia meno di 3 consonanti
 			codCogn = stringaConMenoDiTreConsonanti(cognome);
 		return codCogn;
 	}
 	
 	
-	public int numeroConsonanti(String s) {
+	public int numeroConsonanti(String s) {  
 		int numeroVocali = 0;
 		for(int i = 0; i< s.length(); i++) {
 			char ch = s.charAt(i);
@@ -86,7 +86,7 @@ public class CodiceFiscale {
 		return s.length() - numeroVocali;
 	}
 	
-	public String stringaSenzaVocali(String s ) {
+	public String stringaSenzaVocali(String s ) {     //crea la stringa senza le vocali
 		String stringaSenzaVocali = "";		
 
 		for(int i = 0; i< s.length(); i++) {
@@ -99,7 +99,7 @@ public class CodiceFiscale {
 		return stringaSenzaVocali;
 	}
 	
-	public String stringaSenzaConsonanti(String s) {
+	public String stringaSenzaConsonanti(String s) {     //crea la stringa senza le consonanti
 		String stringaSenzaConsonanti = "";
 		for(int i = 0; i< s.length(); i++) {
 			char ch = s.charAt(i);
@@ -111,24 +111,24 @@ public class CodiceFiscale {
 	
 	public String stringaConMenoDiTreCaratteri(String s) {
 		String str = "";
-		if (numeroConsonanti(s) == 2) {
+		if (numeroConsonanti(s) == 2) {     //caso 2 consonanti
 			str = s + 'X';
 			return str;
 		}
-		else if(numeroConsonanti(s) == 1 && s.length() - numeroConsonanti(s)  == 1) {
+		else if(numeroConsonanti(s) == 1 && s.length() - numeroConsonanti(s)  == 1) {    //caso 1 vocale e una consonante
 			str = stringaSenzaVocali(s)+ stringaSenzaConsonanti(s).charAt(0) + 'X';
 			return str;
 		}
-		else if (numeroConsonanti(s) - s.length() == 2) {
+		else if (numeroConsonanti(s) - s.length() == 2) {    //caso 2 vocali
 			str = s + 'X';
 			return str;
 		}
-		else if (s.length() == 1){
+		else if (s.length() == 1){     //caso lunghezza 1
 			str = s + 'X' + 'X';
 			return str;
 		}
 		else 
-			return "Come ci sei finito qui?";
+			return "Come ci sei finito qui?";     
 	}
 	
 	public String stringaConMenoDiTreConsonanti(String s) {
@@ -136,22 +136,22 @@ public class CodiceFiscale {
 		String str = "";
 		
 		int numCons = numeroConsonanti(s);
-		if (numCons >= 3)
+		if (numCons >= 3)   //solo per il cognome (non entrerà mai per il nome)
 			str = "" +stringaSenzaVocali(s).charAt(0) + stringaSenzaVocali(s).charAt(1) + stringaSenzaVocali(s).charAt(2);
 		
-		else if (numCons == 2)
+		else if (numCons == 2)   //caso 2 consonanti 
 			str = stringaSenzaVocali(s) + stringaSenzaConsonanti(s).charAt(0);
 		
-		else if (numCons == 1)
+		else if (numCons == 1)   //coso 1 consonante
 			str = stringaSenzaVocali(s) + stringaSenzaConsonanti(s).charAt(0) + stringaSenzaConsonanti(s).charAt(1);
 		
-		else {
+		else {   //caso senza consonanti
 			str ="" + stringaSenzaConsonanti(s).charAt(0) + stringaSenzaConsonanti(s).charAt(1) + stringaSenzaConsonanti(s).charAt(2);
 		}
 		return str;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////
 	
 	public String creaCodiceData() {
 		
@@ -159,17 +159,17 @@ public class CodiceFiscale {
 		
 		String data = p.getData();
 		String codAnno = data.substring(2, 4); //ultimi due caratteri dell'anno
-		int mese =  Integer.parseInt(data.substring(5, 7));  //prende il mese e lo converte in int (la data Ã¨ una stringa)
+		int mese =  Integer.parseInt(data.substring(5, 7));  //prende il mese e lo converte in int (la data e' una stringa)
 		char codMese = lettere.charAt(mese -1);
-		String codGiorno = data.substring(8);
+		String codGiorno = data.substring(8);  //prende il giorno xd
 		
-		if (p.getSesso() == 'F') { //se Ã¨ femmina aggiungo 40
+		if (p.getSesso() == 'F') { //se e' femmina aggiungo 40
 			int giornoF = Integer.parseInt(codGiorno);
 			giornoF += 40;
 			codGiorno = String.valueOf(giornoF);
 		}
 		else if (p.getSesso() != 'M') {
-			System.out.println("Ci sono solo due sessi");
+			System.out.println("Ci sono solo due sessi e gli interisti");
 			System.exit(1);
 		}
 		
@@ -181,19 +181,11 @@ public class CodiceFiscale {
 		boolean trovato = false;
 		String codComune = "";
 		
-		XMLInputFactory xmlif = null;
-		XMLStreamReader xmlr = null;
-		try {
-		xmlif = XMLInputFactory.newInstance();
-		xmlr = xmlif.createXMLStreamReader("comuni", new FileInputStream("comuni.xml"));
-		} catch (Exception e) {
-		System.out.println("Errore nell'inizializzazione del reader:");
-		System.out.println(e.getMessage());
-		}
+		XMLStreamReader xmlr = CreaXML.creaReader("comuni", "comuni.xml");   //crea un lettore xml 
 		
-		while(trovato != true && xmlr.hasNext()) {
+		while(trovato != true && xmlr.hasNext()) {   //ciclo finisce quando hai trovato il comune oppure non è presente
 			switch(xmlr.getEventType()) {
-			case XMLStreamConstants.CHARACTERS:
+			case XMLStreamConstants.CHARACTERS:  
 				if (xmlr.getText().equals(p.getComuneDiNascita())){
 					trovato = true;
 					xmlr.next();
@@ -204,17 +196,17 @@ public class CodiceFiscale {
 				}
 				break;
 			}
-			xmlr.next();
+			xmlr.next();    
 		}
-		if (trovato == false ) {
-			System.out.println("Dove cazzo sei nato??");
+		if (trovato == false ) {    //nel caso il comune non è stato trovato
+			System.out.println("Dove sei nato??");
 			System.exit(1);
 		}
 		
 		return codComune;
 	}
 	
-	public char creaCodiceControllo(String codiceParziale) {
+	public char creaCodiceControllo(String codiceParziale) {   
 		
 		  
 		String codicePari = "", codiceDispari = "";
@@ -228,7 +220,7 @@ public class CodiceFiscale {
 		
 		String tabellaResto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
-		for(int i =0; i< codiceParziale.length(); i++) {
+		for(int i =0; i< codiceParziale.length(); i++) {   //crea i codici con i caratteri pari e dispari
 			if ((i +1) % 2 == 0) {
 				codicePari += codiceParziale.charAt(i);
 				}
@@ -236,7 +228,7 @@ public class CodiceFiscale {
 				codiceDispari += codiceParziale.charAt(i);
 		}
 		
-		int sommaPari = conversioneCaratteri(codicePari, caratteriPari);
+		int sommaPari = conversioneCaratteri(codicePari, caratteriPari);   
 		int sommaDispari = conversioneCaratteri(codiceDispari, caratteriDispari);
 		int resto = (sommaPari + sommaDispari)%26;
 		
@@ -246,14 +238,14 @@ public class CodiceFiscale {
 		
 	}
 	
-	public int conversioneCaratteri (String codice, int [] numeri) {
+	public int conversioneCaratteri (String codice, int [] numeri) {    //richiede in input il codice e la stringa di conversione 
 		int somma = 0;
 		for (int i = 0; i < codice.length(); i++) {
-			if (isLettera(codice.charAt(i))) {
-				somma += numeri[codice.charAt(i) - 55];
+			if (isLettera(codice.charAt(i))) {   //controlla se è una lettera
+				somma += numeri[codice.charAt(i) - 55];    //toglie 55 perchè la A corrisponde al valore 65
 			}
 			else 
-				somma += numeri[codice.charAt(i) - 48];		
+				somma += numeri[codice.charAt(i) - 48];    //toglie 48 perchè lo 0 corrisponde al valore 48
 		}
 		return somma;
 	}
@@ -272,11 +264,11 @@ public class CodiceFiscale {
 			return false;
 	}
 	
-	public boolean isValido() {	
+	public boolean isValido() {	    
 		String cf = this.codiceCompleto;
 		cf.toUpperCase();
 		
-		if (cf.length() < 16)
+		if (cf.length() < 16)   //verifica se la lunghezza non sia minore di 16
 			return false;
 		
 		
@@ -299,7 +291,7 @@ public class CodiceFiscale {
 	}
 	
 	public boolean isPosizioneValida(String cf) {
-		for(int i = 0; i < cf.length(); i++) {
+		for(int i = 0; i < cf.length(); i++) {   //controllo che le lettere e numeri siano nelle posizioni corrispondenti
 			if(i == 12)
 				i = 15;
 			if (i == 9)
@@ -317,7 +309,7 @@ public class CodiceFiscale {
 		return true;
 	}
 	
-	public boolean isMeseValido(char mese) {
+	public boolean isMeseValido(char mese) {   //controlla che la lettera del mese sia valida
 		String lettere = "ABCDEHLMPRST";
 		for(int i = 0; i<lettere.length(); i++) {
 			if (mese == lettere.charAt(i))
@@ -325,10 +317,10 @@ public class CodiceFiscale {
 		}
 		return false;
 	}
-	public boolean isGiornoValido(int giorno, char mese) {
+	public boolean isGiornoValido(int giorno, char mese) {    //controlla che il giorno sia valido
 		
 		char sesso;
-		if (giorno <= 31 && giorno >= 1)
+		if (giorno <= 31 && giorno >= 1)  
 			sesso = 'M';
 		else if (giorno <= 71 && giorno >= 41)
 			sesso = 'F';
@@ -338,10 +330,10 @@ public class CodiceFiscale {
 		if(giorno < 1 || (giorno > 31 && giorno < 41) || giorno > 71)
 			return false;
 		
-		if (mese == 'B' && ((giorno > 28 && sesso == 'M') || (giorno > 68 && sesso == 'F')))
+		if (mese == 'B' && ((giorno > 28 && sesso == 'M') || (giorno > 68 && sesso == 'F')))   //caso febbraio
 			return false;
 		
-		if ((mese == 'S' || mese == 'D' || mese == 'H' || mese == 'P') && (giorno == 31 || giorno == 71))
+		if ((mese == 'S' || mese == 'D' || mese == 'H' || mese == 'P') && (giorno == 31 || giorno == 71))   //controllo dei mesi con 30 giorni 
 			return false;
 		
 		return true;

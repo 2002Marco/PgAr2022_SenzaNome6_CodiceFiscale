@@ -4,12 +4,12 @@ import javax.xml.stream.XMLStreamException;
 
 public class Persona {
 	
-	private String nome;
+	private String nome;          
 	private String cognome;
-	private char sesso;
+	private char sesso;      
 	private String data;
 	private String comuneDiNascita;
-	private boolean presente;
+	private boolean presente;        //serve per dire se è presente o meno nella lista dei codici fiscali
 	
 	private CodiceFiscale codiceFiscale;
 	
@@ -89,12 +89,9 @@ public class Persona {
 		this.codiceFiscale = codiceFiscale;
 	}
 
-	public CodiceFiscale creaCodiceFiscale() throws XMLStreamException {
+	public CodiceFiscale creaCodiceFiscale() throws XMLStreamException {    //funzione che crea il codice fiscale
 		
 		return new CodiceFiscale(this);
 		
 	}
-	
-	
-
 }

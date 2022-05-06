@@ -12,7 +12,7 @@ public class CreaXML {
 	
 	
 
-	public static XMLStreamReader creaReader (String nomeFile, String nomeConEstensione) {
+	public static XMLStreamReader creaReader (String nomeFile, String nomeConEstensione) {  //crea il reader
 		
 		XMLInputFactory xmlif = null;
 		XMLStreamReader xmlr = null;
@@ -27,7 +27,7 @@ public class CreaXML {
 		return xmlr;
 	}
 	
-	public static XMLStreamWriter creaWriter (String nomeFile) {
+	public static XMLStreamWriter creaWriter (String nomeFile) {  //crea il writer
 		
 		XMLOutputFactory xmlof = null;
 		XMLStreamWriter xmlw = null;

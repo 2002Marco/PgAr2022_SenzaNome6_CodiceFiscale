@@ -25,7 +25,7 @@ public class Main {
 	
 	
 
-	public static void letturaPersona(XMLStreamReader xmlr) throws XMLStreamException {
+	public static void letturaPersona(XMLStreamReader xmlr) throws XMLStreamException {    //salva le persone dal file xml
 		
 		int i = 0;
 		String nome = "", cognome = "", comuneDiNascita = "", data = "";
@@ -67,7 +67,7 @@ public class Main {
 			}
 	}
 	
-	public static void letturaCodici(XMLStreamReader xmlr) throws XMLStreamException {
+	public static void letturaCodici(XMLStreamReader xmlr) throws XMLStreamException {    //controlla i codici invalidi e validi. 
 		
 		while(xmlr.hasNext()) {
 			switch(xmlr.getEventType()) {
@@ -75,7 +75,7 @@ public class Main {
 				CodiceFiscale tmp = new CodiceFiscale (xmlr.getText());
 				if (xmlr.getText().trim().length() > 0) {
 				if (tmp.isValido()) {
-					codiciValidi.add(tmp);
+					codiciValidi.add(tmp);    //se il codice è valido lo aggiunge alla array list dei codici validi
 				}	
 				else
 					codiciInvalidi.add(tmp);
@@ -87,7 +87,7 @@ public class Main {
 		}
 	}
 	
-	public static void controlloPresenzaCodici() {
+	public static void controlloPresenzaCodici() {   //controlla i codici spaiati
 		
 		
 		
@@ -95,19 +95,19 @@ public class Main {
 			boolean trovato = false;
 			
 			for(int k = 0; !trovato && k< codiciValidi.size() ; k++) {
-				if (persone[i].getCodiceFiscale().getCodiceCompleto().equals(codiciValidi.get(k).getCodiceCompleto())) {
-					persone[i].setPresente(true);
+				if (persone[i].getCodiceFiscale().getCodiceCompleto().equals(codiciValidi.get(k).getCodiceCompleto())) {  //se il codice della persona è nella lista dei codici validi
+					persone[i].setPresente(true);      //allora imposta il valore presente a true
 					trovato = true;
 				}
-				if (k == codiciValidi.size() -1 && !trovato) 
-					codiciSpaiati.add(persone[i].getCodiceFiscale());
+				if (k == codiciValidi.size() -1 && !trovato)   
+					codiciSpaiati.add(persone[i].getCodiceFiscale()); //aggiunge ai codici apaiati il cldice della persona
 				
 			}
 			
 		}
 	}
 	
-	private static void creaXML(XMLStreamWriter xmlw) throws XMLStreamException {
+	private static void creaXML(XMLStreamWriter xmlw) throws XMLStreamException {    
 		
 		
 		xmlw.writeStartElement("output");
@@ -139,7 +139,7 @@ public class Main {
 			xmlw.writeEndElement();
 	
 			xmlw.writeStartElement("codice_fiscale");//codice fiscale
-			if (persone[i].isPresente())
+			if (persone[i].isPresente())     //se un valore presente è true allora stampa il cf altrinenti stampa assente
 				xmlw.writeCharacters(persone[i].getCodiceFiscale().getCodiceCompleto());
 			else 
 				xmlw.writeCharacters("ASSENTE");
@@ -160,7 +160,7 @@ public class Main {
 			xmlw.writeCharacters(codiciInvalidi.get(i).getCodiceCompleto());
 			xmlw.writeEndElement();
 		}
-		xmlw.writeEndElement();//chiude invalidi
+		xmlw.writeEndElement(); //chiude invalidi
 		
 		xmlw.writeStartElement("spaiati");
 		xmlw.writeAttribute("numero", Integer.toString(codiciSpaiati.size()));
@@ -169,7 +169,7 @@ public class Main {
 			xmlw.writeCharacters(codiciSpaiati.get(i).getCodiceCompleto());
 			xmlw.writeEndElement();
 		}
-		xmlw.writeEndElement();//chiude spaiati
+		xmlw.writeEndElement(); //chiude spaiati
 		
 		xmlw.writeEndDocument(); //chiude output
 		
